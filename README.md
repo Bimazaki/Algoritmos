@@ -1,5 +1,5 @@
-#include<stdio.h>
-#include<string.h>
+#include <stdio.h>
+#include <string.h>
 #define LINE 200
 
 int qtdQuestoes;
@@ -20,18 +20,17 @@ cadastrar(qtdQuestoes)
     int numQuest;
 
     printf("\n Digite seu nome Professor(a): ");
-    scanf("%s",&nomeProf);
-    setbuf(stdin,NULL);
+    scanf("%s", &nomeProf);
+    setbuf(stdin, NULL);
 
     printf("\n Digite a materia: ");
     scanf("%s", &materia);
 
     for (numQuest = 0; numQuest < qtdQuestoes; numQuest++)
     {
-        printf("\n Digite a alternativa correta da questao %d: ", numQuest+1);
+        printf("\n Digite a alternativa correta da questao %d: ", numQuest + 1);
         scanf("%s", &gabarito[numQuest]);
     }
-    
 }
 
 cadastrarAluno(qtdQuestoes)
@@ -39,35 +38,37 @@ cadastrarAluno(qtdQuestoes)
     static int linha;
     int sit;
 
-    do{
+    do
+    {
         int numQuest;
-    
+
         printf("\n Digite o nome do aluno: ");
-        scanf("%s",&nomeAluno[linha]);
+        scanf("%s", &nomeAluno[linha]);
 
         printf("\n Digite a quantidade de faltas: ");
         scanf("%d", &faltas[linha]);
 
         for (numQuest = 0; numQuest < qtdQuestoes; numQuest++)
         {
-            printf("\n Digite a alternativa selecionada pelo aluno na questao %d: ", numQuest+1);
+            printf("\n Digite a alternativa selecionada pelo aluno na questao %d: ", numQuest + 1);
             scanf("%s", &mRespostaAluno[linha][numQuest]);
         }
         printf("\n Digite 1 para continuar ou outro valor para sair ");
-        scanf("%d",&sit);
+        scanf("%d", &sit);
 
         linha++;
 
-    } while(sit == 1);
+    } while (sit == 1);
 
     corrigir(qtdQuestoes);
 }
 
-corrigir(qtdQuestoes){
+corrigir(qtdQuestoes)
+{
     int contAluno, contQuest, numAc;
 
     for (contAluno = 0; contAluno < LINE; contAluno++)
-    {   
+    {
         if (situacao[contAluno] == 0)
         {
             numAc = 0;
@@ -80,16 +81,17 @@ corrigir(qtdQuestoes){
             }
             resultado[contAluno] = (10 / qtdQuestoes) * numAc * 1.0;
         }
-    } 
- 
+    }
 }
 
-void listar(){
-    int i, x;    
+void listar()
+{
+    int i, x;
 
     system("cls");
 
-    do{
+    do
+    {
         for (i = 0; strlen(nomeAluno[i]) != 0; i++)
         {
             if (situacao[i] == 0)
@@ -97,91 +99,101 @@ void listar(){
                 if (faltas[i] >= 20)
                 {
                     situacao[i] = 3;
-                    printf("\nAluno %d:\nNome: %s - %.2f\nSituacao: Reprovado\n", i+1, nomeAluno[i], resultado[i]);
+                    printf("\nAluno %d:\nNome: %s - %.2f\nSituacao: Reprovado\n", i + 1, nomeAluno[i], resultado[i]);
                 }
                 else
                 {
-                    if (resultado[i] >= 5){
+                    if (resultado[i] >= 5)
+                    {
                         situacao[i] = 1;
-                        printf("\nAluno %d:\nNome: %s - %.2f\nSituacao: Aprovado\n", i+1, nomeAluno[i], resultado[i]);
+                        printf("\nAluno %d:\nNome: %s - %.2f\nSituacao: Aprovado\n", i + 1, nomeAluno[i], resultado[i]);
                     }
-                    else{
+                    else
+                    {
                         situacao[i] = 2;
-                        printf("\nAluno %d:\nNome: %s - %.2f\nSituacao: Recuperacao\n", i+1, nomeAluno[i], resultado[i]);
+                        printf("\nAluno %d:\nNome: %s - %.2f\nSituacao: Recuperacao\n", i + 1, nomeAluno[i], resultado[i]);
                     }
                 }
             }
-            else{
+            else
+            {
                 if (situacao[i] == 3)
                 {
-                    printf("\nAluno %d:\nNome: %s - %.2f\nSituacao: Reprovado\n", i+1, nomeAluno[i], resultado[i]);
+                    printf("\nAluno %d:\nNome: %s - %.2f\nSituacao: Reprovado\n", i + 1, nomeAluno[i], resultado[i]);
                 }
-                else if (situacao[i] == 1){
-                    printf("\nAluno %d:\nNome: %s - %.2f\nSituacao: Aprovado\n", i+1, nomeAluno[i], resultado[i]);
+                else if (situacao[i] == 1)
+                {
+                    printf("\nAluno %d:\nNome: %s - %.2f\nSituacao: Aprovado\n", i + 1, nomeAluno[i], resultado[i]);
                 }
-                else if (situacao[i] == 2){    
-                    printf("\nAluno %d:\nNome: %s - %.2f\nSituacao: Recuperacao\n", i+1, nomeAluno[i], resultado[i]);
-                
+                else if (situacao[i] == 2)
+                {
+                    printf("\nAluno %d:\nNome: %s - %.2f\nSituacao: Recuperacao\n", i + 1, nomeAluno[i], resultado[i]);
                 }
             }
         }
         printf("\n\nDigite 1 para voltar ao menu ");
         scanf("%d", &x);
 
-    } while(x != 1);      
+    } while (x != 1);
 }
 
-void recuperar(){
+void recuperar()
+{
     int i, x, y;
     float subst;
 
-    do{
+    do
+    {
         system("cls");
 
         printf("\n----ALUNOS DE RECUPERACAO----\n");
 
         for (i = 0; strlen(nomeAluno[i]) != 0; i++)
         {
-            if (situacao[i] == 2){
-                printf("\nAluno %d:\nNome: %s - %.2f\nSituacao: Recuperacao\n", i+1, nomeAluno[i], resultado[i]);
+            if (situacao[i] == 2)
+            {
+                printf("\nAluno %d:\nNome: %s - %.2f\nSituacao: Recuperacao\n", i + 1, nomeAluno[i], resultado[i]);
 
                 printf("\nDigite o numero do aluno caso queira que adicione uma nota de recuperacao, se nao digite qualquer numero para continuar ");
                 scanf("%d", &x);
 
-                if ((x-1) == i)
+                if ((x - 1) == i)
                 {
                     printf("\nInsira a nota com um peso de 40%% ");
                     scanf("%f", &subst);
 
                     resultado[i] = ((resultado[i] * 6) + (subst * 4)) / 10;
-
                 }
             }
 
-            if (resultado[i] >= 5){
+            if (resultado[i] >= 5)
+            {
                 situacao[i] = 1;
-                printf("\n-Nova Nota-\nAluno %d:\nNome: %s - %.2f\nSituacao: Aprovado\n", i+1, nomeAluno[i], resultado[i]);
+                printf("\n-Nova Nota-\nAluno %d:\nNome: %s - %.2f\nSituacao: Aprovado\n", i + 1, nomeAluno[i], resultado[i]);
             }
-            else{
+            else
+            {
                 situacao[i] = 3;
-                printf("\nAluno %d:\nNome: %s - %.2f\nSituacao: Reprovado\n", i+1, nomeAluno[i], resultado[i]);
+                printf("\nAluno %d:\nNome: %s - %.2f\nSituacao: Reprovado\n", i + 1, nomeAluno[i], resultado[i]);
             }
         }
 
         printf("\n\nDigite 1 para voltar ao menu ");
         scanf("%d", &y);
 
-    } while(y != 1);   
+    } while (y != 1);
 }
 
-void menu(){
+void menu()
+{
     int op;
 
-    do{
+    do
+    {
         system("cls");
         printf("Ola professor(a)%s da disciplina %s\n", nomeProf, materia);
         printf("\n ---MENU--- \n\n1 - Cadastrar Aluno \n2 - Listar Alunos\n3 - Entrar com pedido de Recuperacao\n4 - Sair\n");
-        scanf("%d",&op);
+        scanf("%d", &op);
 
         switch (op)
         {
@@ -205,7 +217,7 @@ void menu(){
             break;
         }
 
-    }while(op!= 4);
+    } while (op != 4);
 }
 
 int main()
@@ -217,6 +229,6 @@ int main()
 
     cadastrar(qtdQuestoes);
     menu();
-    
+
     return 0;
-} 
+}
